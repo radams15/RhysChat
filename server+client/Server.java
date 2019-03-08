@@ -121,7 +121,7 @@ public class Server
 
         JButton sendButton = new JButton("Send");
         JButton clearClientsButton = new JButton("Clear Clients");
-        JButton clearServerButton = new JButton("Clear Self");
+        JButton clearServerButton = new JButton("Clear This");
 
         sendButton.addActionListener(new SendButtonListener());
         clearClientsButton.addActionListener(new ClearClientsListener());
