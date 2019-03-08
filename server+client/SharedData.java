@@ -3,7 +3,7 @@ import javax.swing.*;
 public class SharedData {
     static String appName = "RhysChat";
     static int port = 3000;
-    static String ip = "localhost";
+    static String ip = "0.0.0.0";
 
     static String defaultHostname = "Anonymous";
     static String defaultIp = "Unknown";
@@ -15,9 +15,9 @@ public class SharedData {
             //"com.jtattoo.plaf.acryl.AcrylLookAndFeel" //Acryl
             //"com.jtattoo.plaf.fast.FastLookAndFeel" //Fast
             //"com.jtattoo.plaf.hifi.HiFiLookAndFeel" //HiFi
-            //"com.jtattoo.plaf.mint.MintLookAndFeel" //Mint
+            "com.jtattoo.plaf.mint.MintLookAndFeel" //Mint
             //"com.jtattoo.plaf.noire.NoireLookAndFeel" //Noire
-            "com.jtattoo.plaf.smart.SmartLookAndFeel" //Smart
+            //"com.jtattoo.plaf.smart.SmartLookAndFeel" //Smart
             //"com.jtattoo.plaf.luna.LunaLookAndFeel" //Luna
             //"com.jtattoo.plaf.aluminium.AluminiumLookAndFeel" //Aluminium
             //"com.jtattoo.plaf.texture.TextureLookAndFeel" //Texture

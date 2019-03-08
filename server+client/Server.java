@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Server
 {
-    private ArrayList<PrintWriter> clientOutputStreams;
+    private HashMap<String, PrintWriter> clientOutputStreams;
     private EmojiFormatter ef;
 
     private JTextArea incoming;
@@ -27,14 +27,18 @@ public class Server
     public class ClientHandler implements Runnable {
         BufferedReader reader;
         Socket sock;
+        String ip;
         
-        ClientHandler(Socket clientSocket) {
+        ClientHandler(String ip, Socket clientSocket) {
             try {
-                sock = clientSocket;
+                this.ip = ip;
+                this.sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(isReader);
                 
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         
         public void run() {
@@ -43,6 +47,9 @@ public class Server
                 while ((jsonData = reader.readLine()) != null) {
                     System.out.println(jsonData);
                     Message m = Message.fromJson(jsonData);
+
+                    m.fromIp = this.ip;
+                    m.date = new Date();
 
                     if(m.commands.length > 0){
                         for(String c : m.commands){
@@ -62,10 +69,12 @@ public class Server
                     if(m.text == null){
                         continue;
                     }
-                    incoming.append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " +ef.toEmoji( m.text) + "\n");
+                    incoming.append("[" + m.fromName + " ("+m.fromIp+") " + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " +ef.toEmoji( m.text) + "\n");
                     tellEveryone(m);
                 }
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
     
@@ -101,6 +110,7 @@ public class Server
 
         try {
             myIp = InetAddress.getLocalHost().getHostAddress();
+            //myIp = "192.168.0.22";
         }catch(UnknownHostException ex){
             myIp = SharedData.defaultIp;
         }
@@ -167,7 +177,7 @@ public class Server
     }
     
     private void go() {
-        clientOutputStreams = new ArrayList<>();
+        clientOutputStreams = new HashMap<>();
         ef = new EmojiFormatter();
         buildGui();
         try {
@@ -176,9 +186,12 @@ public class Server
             while(true) {
                 Socket clientSocket = serverSock.accept();
                 PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-                clientOutputStreams.add(writer);
+
+                String ipConnected = clientSocket.getInetAddress().toString().substring(1);
+
+                clientOutputStreams.put(ipConnected, writer);
                 
-                Thread t = new Thread(new ClientHandler(clientSocket));
+                Thread t = new Thread(new ClientHandler(ipConnected, clientSocket));
                 t.start();
                 System.out.println("New Client Connected");
             }
@@ -187,9 +200,9 @@ public class Server
 
     private void tellEveryone(Message message) {
         String json = message.toJson();
-        for (Object p : clientOutputStreams){
+        for (String ip : clientOutputStreams.keySet()){
             try {
-                PrintWriter writer = (PrintWriter) p;
+                PrintWriter writer = clientOutputStreams.get(ip);
                 writer.println(json);
                 writer.flush();
             } catch (Exception ex) { ex.printStackTrace(); }
