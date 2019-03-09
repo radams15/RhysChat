@@ -1,10 +1,11 @@
 import com.vdurmont.emoji.EmojiParser;
+import emoji4j.EmojiUtils;
 
 class EmojiFormatter {
 
     String toEmoji(String input){
         try {
-            String formatted = EmojiParser.parseToUnicode(input);
+            String formatted = EmojiUtils.emojify(input);
             return formatted;
         }catch(NullPointerException n){
             return input;
@@ -12,7 +13,7 @@ class EmojiFormatter {
     }
     String toPlainText(String input) {
         try {
-            String formatted = EmojiParser.parseToAliases(input);
+            String formatted = EmojiUtils.shortCodify(input);
             return formatted;
         } catch (NullPointerException n) {
             return input;

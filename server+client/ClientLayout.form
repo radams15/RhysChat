@@ -31,7 +31,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="56c0d" class="javax.swing.JTextArea" binding="incoming">
+          <component id="50808" class="javax.swing.JTextPane" binding="incoming">
             <constraints/>
             <properties/>
           </component>

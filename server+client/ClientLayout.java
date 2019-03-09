@@ -2,6 +2,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.Date;
 
 public class ClientLayout{
     private boolean production = true;
-    private JTextArea incoming;
+    private JTextPane incoming;
     private JPanel mainPanel;
     private JScrollPane qScroller;
     private JTextField outgoing;
@@ -33,7 +35,7 @@ public class ClientLayout{
         }
 
         public void windowOpened(WindowEvent arg0) {
-            incoming.append("You Joined The Chat As "+clientHostname+"\n");
+            append("You Joined The Chat As "+clientHostname+"\n");
             Message joinMessage = new Message(null, clientIp, clientHostname, new Date(), new String[]{"joining"});
             sendMessage(joinMessage);
         }
@@ -45,9 +47,18 @@ public class ClientLayout{
 
     }
 
+    public void append(String s) {
+        try {
+            Document doc = incoming.getDocument();
+            doc.insertString(doc.getLength(), s, null);
+        } catch(BadLocationException exc) {
+            exc.printStackTrace();
+        }
+    }
+
     private void go() {
         if (production) {
-            String address = JOptionPane.showInputDialog("Ip Address: (IP:PORT) [Default localhost:3000]");
+            String address = JOptionPane.showInputDialog("Ip Address: (IP:PORT) [Default 0.0.0.0:3000]");
             if (address.equals("")) {
                 port = SharedData.port;
                 serverIp = SharedData.ip;
@@ -76,9 +87,10 @@ public class ClientLayout{
 
         sendButton.addActionListener(new SendButtonListener());
 
-        incoming.setLineWrap(true);
-        incoming.setWrapStyleWord(true);
+        /*incoming.setLineWrap(true);
+        incoming.setWrapStyleWord(true);*/
         incoming.setEditable(false);
+        incoming.setContentType("text/html");
 
         outgoing.setMinimumSize(new Dimension());
 
@@ -145,7 +157,8 @@ public class ClientLayout{
         {
             e.printStackTrace();
         }
-        new ClientLayout().go();
+        ClientLayout app = new ClientLayout();
+        app.go();
     }
 
     class IncomingReader implements Runnable {
@@ -163,10 +176,10 @@ public class ClientLayout{
                                     incoming.setText("Server Cleared Chat\n");
                                     continue;
                                 case "leaving":
-                                    incoming.append(m.fromName + " Has Left The Chat\n");
+                                    append(m.fromName + " Has Left The Chat\n");
                                     continue;
                                 case "joining":
-                                    incoming.append(m.fromName + " Has Joined The Chat\n");
+                                    append(m.fromName + "Has Joined The Chat\n");
                                     continue;
                                 case "exit":
                                     //System.exit(0);
@@ -178,11 +191,11 @@ public class ClientLayout{
                     if(m.text == null){
                         continue;
                     }
-                    incoming.append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
+                    append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
                 }
             } catch (IOException ex) {
                 //ex.printStackTrace();
-                incoming.append("Server Closed\n");
+                append("Server Closed\n");
                 sendButton.setEnabled(false);
                 outgoing.setEnabled(false);
             }

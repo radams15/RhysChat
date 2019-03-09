@@ -8,11 +8,12 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 
 public class Server
 {
-    private HashMap<String, PrintWriter> clientOutputStreams;
+    private HashMap<String[], PrintWriter> clientOutputStreams; // String[] is ip then host
     private EmojiFormatter ef;
 
     private JTextArea incoming;
@@ -27,11 +28,12 @@ public class Server
     public class ClientHandler implements Runnable {
         BufferedReader reader;
         Socket sock;
-        String ip;
+        String[] ips;
         
-        ClientHandler(String ip, Socket clientSocket) {
+        ClientHandler(String[] ips, Socket clientSocket) {
             try {
-                this.ip = ip;
+                this.ips = ips;
+
                 this.sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(isReader);
@@ -48,30 +50,34 @@ public class Server
                     System.out.println(jsonData);
                     Message m = Message.fromJson(jsonData);
 
-                    m.fromIp = this.ip;
+                    m.fromIp = this.ips[0];
+                    m.fromName = this.ips[1];
+
                     m.date = new Date();
 
-                    if(m.commands.length > 0){
-                        for(String c : m.commands){
-                            if(c.equals("leaving")){
-                                incoming.append(m.fromName + "(" +m.fromIp +")" + " Has Left The Chat\n");
+                    if (m.commands.length > 0) {
+                        for (String c : m.commands) {
+                            if (c.equals("leaving")) {
+                                incoming.append(m.fromName + "(" + m.fromIp + ")" + " Has Left The Chat\n");
                                 continue;
-                            }else if(c.equals("joining")){
-                                incoming.append(m.fromName + "(" +m.fromIp +")" + " Has Joined The Chat\n");
+                            } else if (c.equals("joining")) {
+                                incoming.append(m.fromName + "(" + m.fromIp + ")" + " Has Joined The Chat\n");
                                 continue;
-                            }else if(c.equals("null")){
+                            } else if (c.equals("null")) {
                                 continue;
                             }
                         }
                     }
 
                     //System.out.println("read " + m.text + " from " + m.from);
-                    if(m.text == null){
+                    if (m.text == null) {
                         continue;
                     }
-                    incoming.append("[" + m.fromName + " ("+m.fromIp+") " + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " +ef.toEmoji( m.text) + "\n");
-                    tellEveryone(m);
+                    incoming.append("[" + m.fromName + " (" + m.fromIp + ") " + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
+                    broadcastMessage(m);
                 }
+            }catch(SocketException se){
+                clientOutputStreams.remove(ips);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -91,7 +97,7 @@ public class Server
 
         public void windowClosing(WindowEvent arg0) {
             Message m = new Message(null, null, null, null, new String[]{"exit"});
-            tellEveryone(m);
+            broadcastMessage(m);
             System.exit(0);
         }
         public void windowOpened(WindowEvent arg0) {}
@@ -156,7 +162,7 @@ public class Server
         public void actionPerformed(ActionEvent ev) {
             String text = outgoing.getText();
             Message m = new Message(text, myIp, myName, new Date(), new String[0]);
-            tellEveryone(m);
+            broadcastMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();
             incoming.append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
@@ -172,7 +178,7 @@ public class Server
     public class ClearClientsListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
             Message m = new Message(null, null, null, null, new String[]{"clear"});
-            tellEveryone(m);
+            broadcastMessage(m);
         }
     }
     
@@ -188,23 +194,32 @@ public class Server
                 PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
 
                 String ipConnected = clientSocket.getInetAddress().toString().substring(1);
+                String hostConnected = clientSocket.getInetAddress().getHostName();
 
-                clientOutputStreams.put(ipConnected, writer);
+                String[] outString = new String[]{ipConnected, hostConnected};
+
+                clientOutputStreams.put(outString, writer);
                 
-                Thread t = new Thread(new ClientHandler(ipConnected, clientSocket));
+                Thread t = new Thread(new ClientHandler(outString, clientSocket));
                 t.start();
                 System.out.println("New Client Connected");
             }
         } catch (Exception ex) { ex.printStackTrace(); }
     }
 
-    private void tellEveryone(Message message) {
+    private void broadcastMessage(Message message) {
+        broadcastMessage(message, this.clientOutputStreams.keySet());
+    }
+
+    private void broadcastMessage(Message message, Set<String[]> recipients){
         String json = message.toJson();
-        for (String ip : clientOutputStreams.keySet()){
+        for (String[] ips : clientOutputStreams.keySet()){
             try {
-                PrintWriter writer = clientOutputStreams.get(ip);
-                writer.println(json);
-                writer.flush();
+                if(recipients.contains(ips)) {
+                    PrintWriter writer = clientOutputStreams.get(ips);
+                    writer.println(json);
+                    writer.flush();
+                }
             } catch (Exception ex) { ex.printStackTrace(); }
         }
     }
