@@ -3,4 +3,8 @@ server.jar.lnk
 
 client.jar.lnk
 
-.idea/
+.idea/workspace.xml
+
+.idea/usage.statistics.xml
+
+.idea/tasks.xml

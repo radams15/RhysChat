@@ -140,7 +140,6 @@ public class ClientLayout{
 
     public class SendButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
-            System.out.println("Send Button");
             String text = ef.toPlainText(outgoing.getText());
             Message m = new Message(text, clientIp, clientHostname, new Date(), new String[0]);
             sendMessage(m);
