@@ -38,7 +38,7 @@ public class ClientLayout{
         }
 
         public void windowOpened(WindowEvent arg0) {
-            append("You Joined The Chat As "+clientHostname+"\n");
+            append("You Joined The Chat As "+clientHostname);
             Message joinMessage = new Message(null, clientIp, clientHostname, new Date(), new String[]{"joining"});
             sendMessage(joinMessage);
         }
@@ -50,7 +50,8 @@ public class ClientLayout{
 
     }
 
-    public void append(String s) {
+    public void append(String sIn) {
+        String s = sIn + "\n";
         try {
             Document doc = incoming.getDocument();
             doc.insertString(doc.getLength(), s, null);
@@ -179,13 +180,13 @@ public class ClientLayout{
                         for(String c : m.commands){
                             switch(c){
                                 case "clear":
-                                    incoming.setText("Server Cleared Chat\n");
+                                    incoming.setText("Server Cleared Chat");
                                     continue;
                                 case "leaving":
-                                    append(m.fromName + " Has Left The Chat\n");
+                                    append(m.fromName + " Has Left The Chat");
                                     continue;
                                 case "joining":
-                                    append(m.fromName + "Has Joined The Chat\n");
+                                    append(m.fromName + "Has Joined The Chat");
                                     continue;
                                 case "exit":
                                     //System.exit(0);
@@ -197,11 +198,11 @@ public class ClientLayout{
                     if(m.text == null){
                         continue;
                     }
-                    append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
+                    append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text));
                 }
             } catch (IOException ex) {
                 //ex.printStackTrace();
-                append("Server Closed\n");
+                append("Server Closed");
                 sendButton.setEnabled(false);
                 outgoing.setEnabled(false);
             }

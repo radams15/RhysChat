@@ -9,13 +9,13 @@ class SharedData {
     static String defaultIp = "Unknown";
 
     static String clientTheme =  (
-            //UIManager.getSystemLookAndFeelClassName() //System
+            UIManager.getSystemLookAndFeelClassName() //System
             //UIManager.getCrossPlatformLookAndFeelClassName() //Metal
             //"com.jtattoo.plaf.aero.AeroLookAndFeel" //Aero
             //"com.jtattoo.plaf.acryl.AcrylLookAndFeel" //Acryl
             //"com.jtattoo.plaf.fast.FastLookAndFeel" //Fast
             //"com.jtattoo.plaf.hifi.HiFiLookAndFeel" //HiFi
-            "com.jtattoo.plaf.mint.MintLookAndFeel" //Mint
+            //"com.jtattoo.plaf.mint.MintLookAndFeel" //Mint
             //"com.jtattoo.plaf.noire.NoireLookAndFeel" //Noire
             //"com.jtattoo.plaf.smart.SmartLookAndFeel" //Smart
             //"com.jtattoo.plaf.luna.LunaLookAndFeel" //Luna
@@ -26,7 +26,7 @@ class SharedData {
             //"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel" //nimbus
     );
 
-    static String serverTheme = clientTheme;
+    static String serverTheme = "com.jtattoo.plaf.mint.MintLookAndFeel"; //Mint;
 
     static int[] clientArea = {650, 500};
     static int[] serverArea = {800, 600};
