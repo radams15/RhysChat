@@ -1,4 +1,3 @@
-import com.vdurmont.emoji.EmojiParser;
 import emoji4j.EmojiUtils;
 
 class EmojiFormatter {

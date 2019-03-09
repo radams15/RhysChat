@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class SharedData {
+class SharedData {
     static String appName = "RhysChat";
     static int port = 3000;
     static String ip = "0.0.0.0";
