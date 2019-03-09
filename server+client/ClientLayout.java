@@ -180,6 +180,7 @@ public class ClientLayout{
                         for(String c : m.commands){
                             switch(c){
                                 case "clear":
+                                    incoming.setText(null);
                                     append("Server Cleared Chat");
                                     continue;
                                 case "leaving":
