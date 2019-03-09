@@ -45,29 +45,16 @@ public class Server
         
         public void run() {
             String jsonData;
+            incoming.append(this.ips[1] + "(" + this.ips[0] + ")" + " Has Joined The Chat\n");
             try {
                 while ((jsonData = reader.readLine()) != null) {
                     System.out.println(jsonData);
                     Message m = Message.fromJson(jsonData);
 
                     m.fromIp = this.ips[0];
-                    m.fromName = this.ips[1];
+                    //m.fromName = this.ips[1]; //rename client to their hostname
 
                     m.date = new Date();
-
-                    if (m.commands.length > 0) {
-                        for (String c : m.commands) {
-                            if (c.equals("leaving")) {
-                                incoming.append(m.fromName + "(" + m.fromIp + ")" + " Has Left The Chat\n");
-                                continue;
-                            } else if (c.equals("joining")) {
-                                incoming.append(m.fromName + "(" + m.fromIp + ")" + " Has Joined The Chat\n");
-                                continue;
-                            } else if (c.equals("null")) {
-                                continue;
-                            }
-                        }
-                    }
 
                     //System.out.println("read " + m.text + " from " + m.from);
                     if (m.text == null) {
@@ -77,7 +64,10 @@ public class Server
                     broadcastMessage(m);
                 }
             }catch(SocketException se){
+                se.printStackTrace();
+                incoming.append(this.ips[1] + "(" + this.ips[0] + ")" + " Has Left The Chat\n");
                 clientOutputStreams.remove(ips);
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -116,7 +106,6 @@ public class Server
 
         try {
             myIp = InetAddress.getLocalHost().getHostAddress();
-            //myIp = "192.168.0.22";
         }catch(UnknownHostException ex){
             myIp = SharedData.defaultIp;
         }

@@ -180,7 +180,7 @@ public class ClientLayout{
                         for(String c : m.commands){
                             switch(c){
                                 case "clear":
-                                    incoming.setText("Server Cleared Chat");
+                                    append("Server Cleared Chat");
                                     continue;
                                 case "leaving":
                                     append(m.fromName + " Has Left The Chat");
@@ -189,7 +189,7 @@ public class ClientLayout{
                                     append(m.fromName + "Has Joined The Chat");
                                     continue;
                                 case "exit":
-                                    //System.exit(0);
+                                    //System.exit(0)
                             }
                         }
                     }
