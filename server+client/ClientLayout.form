@@ -14,7 +14,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <font name="Calibri" size="14" style="0"/>
+        </properties>
       </component>
       <component id="68dee" class="javax.swing.JButton" binding="sendButton" default-binding="true">
         <constraints>
@@ -33,7 +35,10 @@
         <children>
           <component id="50808" class="javax.swing.JTextPane" binding="incoming">
             <constraints/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+              <font name="Calibri" size="14" style="0"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

@@ -2,6 +2,9 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.*;
@@ -84,6 +87,10 @@ public class ClientLayout{
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setSize(new Dimension(SharedData.clientArea[0], SharedData.clientArea[1]));
+
+        Border border = mainPanel.getBorder();
+        Border margin = new EmptyBorder(10,10,10,10);
+        mainPanel.setBorder(new CompoundBorder(border, margin));
 
         sendButton.addActionListener(new SendButtonListener());
 
