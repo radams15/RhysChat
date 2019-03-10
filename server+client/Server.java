@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +50,7 @@ public class Server
         
         public void run() {
             String jsonData;
-            incoming.append(this.ips[1] + " (" + this.ips[0] + ")" + " Has Joined The Chat\n");
+            append(this.ips[1] + " (" + this.ips[0] + ")" + " Has Joined The Chat");
             try {
                 while ((jsonData = reader.readLine()) != null) {
                     System.out.println(jsonData);
@@ -72,14 +74,15 @@ public class Server
                     }
 
                     //System.out.println("read " + m.text + " from " + m.from);
-                    incoming.append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
+                    append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
                     broadcastMessage(m);
                 }
             }catch(SocketException se){
-                se.printStackTrace();
+                /*probably leaving*/
+                //se.printStackTrace();
                 Message joinMessage = new Message(null, this.ips[0], this.ips[1], new Date(), new String[]{"leaving"});
                 broadcastMessage(joinMessage);
-                incoming.append(this.ips[1] + " (" + this.ips[0] + ") " + " Has Left The Chat\n");
+                append(this.ips[1] + " (" + this.ips[0] + ") " + " Has Left The Chat");
                 clientOutputStreams.remove(ips);
 
             } catch (Exception ex) {
@@ -148,6 +151,9 @@ public class Server
 
         frame.getRootPane().setDefaultButton(sendButton);
 
+        DefaultCaret caret = (DefaultCaret)incoming.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+
         mainPanel.add(infoLabel);
         mainPanel.add(qScroller);
         mainPanel.add(outgoing);
@@ -168,7 +174,7 @@ public class Server
             broadcastMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();
-            incoming.append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
+            append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
         }
     }
 
@@ -182,6 +188,15 @@ public class Server
         public void actionPerformed(ActionEvent ev) {
             Message m = new Message(null, null, null, null, new String[]{"clear"});
             broadcastMessage(m);
+        }
+    }
+
+    private void append(String text){
+        text = text+"\n";
+        try {
+            incoming.getDocument().insertString(0, text, null);
+        }catch (BadLocationException ble){
+            ble.printStackTrace();
         }
     }
     
@@ -216,11 +231,19 @@ public class Server
 
     private void broadcastMessage(Message message, Set<String[]> recipients){
         String json = message.toJson();
+        broadcastMessage(json, recipients);
+    }
+
+    private void broadcastMessage(String msg){
+        broadcastMessage(msg, this.clientOutputStreams.keySet());
+    }
+
+    private void broadcastMessage(String msg, Set<String[]> recipients){
         for (String[] ips : clientOutputStreams.keySet()){
             try {
                 if(recipients.contains(ips)) {
                     PrintWriter writer = clientOutputStreams.get(ips);
-                    writer.println(json);
+                    writer.println(msg);
                     writer.flush();
                 }
             } catch (Exception ex) { ex.printStackTrace(); }

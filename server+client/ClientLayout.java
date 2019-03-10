@@ -6,6 +6,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.Document;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
@@ -49,13 +50,12 @@ public class ClientLayout{
 
     }
 
-    public void append(String sIn) {
-        String s = sIn + "\n";
+    public void append(String text) {
+        text = text+"\n";
         try {
-            Document doc = incoming.getDocument();
-            doc.insertString(doc.getLength(), s, null);
-        } catch(BadLocationException exc) {
-            exc.printStackTrace();
+            incoming.getDocument().insertString(0, text, null);
+        }catch (BadLocationException ble){
+            ble.printStackTrace();
         }
     }
 
@@ -100,6 +100,9 @@ public class ClientLayout{
         incoming.setContentType("text/html");
 
         outgoing.setMinimumSize(new Dimension());
+
+        DefaultCaret caret = (DefaultCaret)incoming.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 
         frame.getRootPane().setDefaultButton(sendButton);
         frame.setVisible(true);
@@ -186,7 +189,7 @@ public class ClientLayout{
                                     append(m.fromName + " Has Left The Chat");
                                     continue;
                                 case "joining":
-                                    append(m.fromName + "Has Joined The Chat");
+                                    append(m.fromName + " Has Joined The Chat");
                                     continue;
                                 case "exit":
                                     //System.exit(0)

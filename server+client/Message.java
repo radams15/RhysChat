@@ -1,5 +1,7 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 class Message {
@@ -10,6 +12,12 @@ class Message {
     String[] commands;
     private transient Gson g;
 
+    void initGson(){
+        g = new Gson();
+        /*GsonBuilder builder = new GsonBuilder();
+        g = builder.serializeNulls().create();*/
+    }
+
     Message(String text, String fromIp, String fromName, Date date, String[] commands){
         this.text = text;
         this.fromIp = fromIp;
@@ -17,11 +25,11 @@ class Message {
         this.date = date;
         this.commands = commands;
 
-        g = new Gson();
+        initGson();
     }
 
     Message(){
-        g = new Gson();
+        initGson();
     }
 
     String toJson(){
