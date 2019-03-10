@@ -74,7 +74,7 @@ public class Server
                     }
 
                     //System.out.println("read " + m.text + " from " + m.from);
-                    append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
+                    append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
                     broadcastMessage(m);
                 }
             }catch(SocketException se){
@@ -174,7 +174,7 @@ public class Server
             broadcastMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();
-            append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
+            append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
         }
     }
 

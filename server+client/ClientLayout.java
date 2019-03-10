@@ -7,7 +7,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
-import javax.swing.text.Document;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -201,7 +200,7 @@ public class ClientLayout{
                     if(m.text == null){
                         continue;
                     }
-                    append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
+                    append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
                 }
             } catch (IOException ex) {
                 //ex.printStackTrace();

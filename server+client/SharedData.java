@@ -1,16 +1,16 @@
-import javax.swing.*;
-
 class SharedData {
     static String appName = "RhysChat";
     static int port = 3000;
     static String ip = "0.0.0.0";
 
+    static String dateFormat = "hh:mm:ss:SSS a";
+
     static String defaultHostname = "Anonymous";
     static String defaultIp = "Unknown";
 
     static String serverTheme = (
-            //UIManager.getSystemLookAndFeelClassName() //System
-            //UIManager.getCrossPlatformLookAndFeelClassName() //Metal
+            //javax.swing.UIManager.getSystemLookAndFeelClassName() //System
+            //javax.swing.UIManager.getCrossPlatformLookAndFeelClassName() //Metal
             //"com.jtattoo.plaf.aero.AeroLookAndFeel" //Aero
             //"com.jtattoo.plaf.acryl.AcrylLookAndFeel" //Acryl
             //"com.jtattoo.plaf.fast.FastLookAndFeel" //Fast
@@ -26,7 +26,7 @@ class SharedData {
             //"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel" //nimbus
     );
 
-    static String clientTheme =  UIManager.getSystemLookAndFeelClassName(); //System
+    static String clientTheme =  serverTheme;//javax.swing.UIManager.getSystemLookAndFeelClassName(); //System
 
     static int[] clientArea = {650, 500};
     static int[] serverArea = {800, 600};
