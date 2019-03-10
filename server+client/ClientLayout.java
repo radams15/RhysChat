@@ -62,15 +62,15 @@ public class ClientLayout{
         if (production) {
             String address = JOptionPane.showInputDialog("Ip Address: (IP:PORT) [Default 0.0.0.0:3000]");
             if (address.equals("")) {
-                port = SharedData.port;
-                serverIp = SharedData.ip;
+                port = Globals.port;
+                serverIp = Globals.ip;
             } else {
                 String[] splitAddress = address.split(":");
                 serverIp = splitAddress[0];
                 try {
                     port = Integer.valueOf(splitAddress[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    port = SharedData.port;
+                    port = Globals.port;
                 }
             }
         }
@@ -80,12 +80,12 @@ public class ClientLayout{
             System.exit(1);
         }
 
-        JFrame frame = new JFrame(SharedData.appName+" Client");
+        JFrame frame = new JFrame(Globals.appName+" Client");
         frame.addWindowListener(new MainWindowListener());
 
         frame.setContentPane(mainPanel);
         frame.pack();
-        frame.setSize(new Dimension(SharedData.clientArea[0], SharedData.clientArea[1]));
+        frame.setSize(new Dimension(Globals.clientArea[0], Globals.clientArea[1]));
 
         Border border = mainPanel.getBorder();
         Border margin = new EmptyBorder(10,10,10,10);
@@ -110,8 +110,8 @@ public class ClientLayout{
             clientHostname = InetAddress.getLocalHost().getHostName();
             clientIp = InetAddress.getLocalHost().getHostAddress();
         }catch(UnknownHostException e){
-            clientHostname = SharedData.defaultHostname;
-            clientIp = SharedData.defaultIp;
+            clientHostname = Globals.defaultHostname;
+            clientIp = Globals.defaultIp;
         }
 
         ef = new EmojiFormatter();
@@ -160,7 +160,7 @@ public class ClientLayout{
     public static void main(String[] args) {
 
         try {
-            UIManager.setLookAndFeel(SharedData.clientTheme);
+            UIManager.setLookAndFeel(Globals.clientTheme);
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -200,7 +200,7 @@ public class ClientLayout{
                     if(m.text == null){
                         continue;
                     }
-                    append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
+                    append("[ " + new SimpleDateFormat(Globals.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
                 }
             } catch (IOException ex) {
                 //ex.printStackTrace();

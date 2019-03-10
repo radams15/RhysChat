@@ -74,7 +74,7 @@ public class Server
                     }
 
                     //System.out.println("read " + m.text + " from " + m.from);
-                    append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
+                    append("[ " + new SimpleDateFormat(Globals.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
                     broadcastMessage(m);
                 }
             }catch(SocketException se){
@@ -93,7 +93,7 @@ public class Server
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(SharedData.serverTheme);
+            UIManager.setLookAndFeel(Globals.serverTheme);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -117,19 +117,19 @@ public class Server
     }
 
     private void buildGui(){
-        port = SharedData.port;
-        ip = SharedData.ip;
-        int[] windowArea = SharedData.serverArea;
+        port = Globals.port;
+        ip = Globals.ip;
+        int[] windowArea = Globals.serverArea;
 
         try {
             myIp = InetAddress.getLocalHost().getHostAddress();
         }catch(UnknownHostException ex){
-            myIp = SharedData.defaultIp;
+            myIp = Globals.defaultIp;
         }
 
         JLabel infoLabel = new JLabel("<html>IP: <b>"+myIp+"</b><br>Port: <b>"+port+"</b></html>");
 
-        JFrame frame = new JFrame(SharedData.appName+" Server");
+        JFrame frame = new JFrame(Globals.appName+" Server");
         frame.addWindowListener(new MainWindowListener());
         JPanel mainPanel = new JPanel();
         incoming = new JTextArea(15, 50);
@@ -174,7 +174,7 @@ public class Server
             broadcastMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();
-            append("[ " + new SimpleDateFormat(SharedData.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
+            append("[ " + new SimpleDateFormat(Globals.dateFormat).format(m.date) + " ] " + m.fromName + ": "+m.text);
         }
     }
 
