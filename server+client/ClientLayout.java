@@ -38,7 +38,6 @@ public class ClientLayout{
         }
 
         public void windowOpened(WindowEvent arg0) {
-            append("You Joined The Chat As "+clientHostname);
             Message joinMessage = new Message(null, clientIp, clientHostname, new Date(), new String[]{"joining"});
             sendMessage(joinMessage);
         }
@@ -199,7 +198,7 @@ public class ClientLayout{
                     if(m.text == null){
                         continue;
                     }
-                    append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text));
+                    append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
                 }
             } catch (IOException ex) {
                 //ex.printStackTrace();

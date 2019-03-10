@@ -8,7 +8,6 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 
 public class Server
@@ -29,6 +28,8 @@ public class Server
         BufferedReader reader;
         Socket sock;
         String[] ips;
+        boolean nameSet = false;
+        String preferredName;
         
         ClientHandler(String[] ips, Socket clientSocket) {
             try {
@@ -37,7 +38,9 @@ public class Server
                 this.sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(isReader);
-                
+
+                Message joinMessage = new Message(null, this.ips[0], this.ips[1], new Date(), new String[]{"joining"});
+                broadcastMessage(joinMessage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -45,27 +48,38 @@ public class Server
         
         public void run() {
             String jsonData;
-            incoming.append(this.ips[1] + "(" + this.ips[0] + ")" + " Has Joined The Chat\n");
+            incoming.append(this.ips[1] + " (" + this.ips[0] + ")" + " Has Joined The Chat\n");
             try {
                 while ((jsonData = reader.readLine()) != null) {
                     System.out.println(jsonData);
                     Message m = Message.fromJson(jsonData);
 
-                    m.fromIp = this.ips[0];
-                    //m.fromName = this.ips[1]; //rename client to their hostname
+                    m.commands = new String[0]; // removes all commands from the client's message, don't want them clearing tha chat!
+
+                    m.fromIp = this.ips[0]; // set ip to their actual ip
+
+                    if(!nameSet) {
+                        //preferredName = this.ips[1]; //rename client's preferred name to their hostname
+                        preferredName = m.fromName; // set preferred name to their first message's from name
+                        nameSet = true;
+                    }
+                    m.fromName = preferredName;
 
                     m.date = new Date();
 
-                    //System.out.println("read " + m.text + " from " + m.from);
                     if (m.text == null) {
                         continue;
                     }
-                    incoming.append("[" + m.fromName + " (" + m.fromIp + ") " + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
+
+                    //System.out.println("read " + m.text + " from " + m.from);
+                    incoming.append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
                     broadcastMessage(m);
                 }
             }catch(SocketException se){
                 se.printStackTrace();
-                incoming.append(this.ips[1] + "(" + this.ips[0] + ")" + " Has Left The Chat\n");
+                Message joinMessage = new Message(null, this.ips[0], this.ips[1], new Date(), new String[]{"leaving"});
+                broadcastMessage(joinMessage);
+                incoming.append(this.ips[1] + " (" + this.ips[0] + ") " + " Has Left The Chat\n");
                 clientOutputStreams.remove(ips);
 
             } catch (Exception ex) {
@@ -154,7 +168,7 @@ public class Server
             broadcastMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();
-            incoming.append("[" + m.fromName + " at " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ]: " + ef.toEmoji(m.text) + "\n");
+            incoming.append("[ " + new SimpleDateFormat("hh:mm:ss a").format(m.date) + " ] " + m.fromName + ": "+m.text);
         }
     }
 
