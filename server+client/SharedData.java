@@ -17,10 +17,10 @@ class SharedData {
             //"com.jtattoo.plaf.hifi.HiFiLookAndFeel" //HiFi
             //"com.jtattoo.plaf.mint.MintLookAndFeel" //Mint
             //"com.jtattoo.plaf.noire.NoireLookAndFeel" //Noire
-            "com.jtattoo.plaf.smart.SmartLookAndFeel" //Smart
+            //"com.jtattoo.plaf.smart.SmartLookAndFeel" //Smart
             //"com.jtattoo.plaf.luna.LunaLookAndFeel" //Luna
             //"com.jtattoo.plaf.aluminium.AluminiumLookAndFeel" //Aluminium
-            //"com.jtattoo.plaf.texture.TextureLookAndFeel" //Texture
+            "com.jtattoo.plaf.texture.TextureLookAndFeel" //Texture
             //"com.jtattoo.plaf.mcwin.McWinLookAndFeel" //Mac
             //"com.jtattoo.plaf.bernstein.BernsteinLookAndFeel" // Yellow
             //"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel" //nimbus
