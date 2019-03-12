@@ -16,9 +16,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.5'
-    compile 'com.jtattoo:JTattoo:1.6.11'
-    compile 'com.kcthota:emoji4j:5.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.jtattoo:JTattoo:1.6.11'
+    implementation 'com.kcthota:emoji4j:5.0'
 }
 
 group = 'groupId'
@@ -29,6 +29,14 @@ publishing {
     publications {
         maven(MavenPublication) {
             from(components.java)
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/'
         }
     }
 }
