@@ -25,7 +25,6 @@ public class ClientLayout{
     private PrintWriter writer;
     private String clientIp;
     private String clientHostname;
-    private EmojiFormatter ef;
 
     private int port;
     private String serverIp;
@@ -116,8 +115,6 @@ public class ClientLayout{
             clientIp = Globals.defaultIp;
         }
 
-        ef = new EmojiFormatter();
-
         Thread readerThread = new Thread(new IncomingReader());
         readerThread.start();
 
@@ -151,7 +148,7 @@ public class ClientLayout{
 
     public class SendButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
-            String text = ef.toPlainText(outgoing.getText());
+            String text = outgoing.getText();
             Message m = new Message(text, clientIp, clientHostname, new Date(), new String[0]);
             sendMessage(m);
             outgoing.setText("");

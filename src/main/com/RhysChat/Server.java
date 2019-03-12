@@ -17,7 +17,6 @@ import java.util.*;
 public class Server
 {
     private HashMap<String[], PrintWriter> clientOutputStreams; // String[] is ip then host
-    private EmojiFormatter ef;
 
     private JTextArea incoming;
     private JTextField outgoing;
@@ -204,7 +203,6 @@ public class Server
     
     private void go() {
         clientOutputStreams = new HashMap<>();
-        ef = new EmojiFormatter();
         buildGui();
         try {
             InetAddress addr = InetAddress.getByName(ip);
