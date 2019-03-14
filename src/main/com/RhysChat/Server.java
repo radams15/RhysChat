@@ -12,6 +12,8 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Server
@@ -54,7 +56,7 @@ public class Server
             append(this.ips[1] + " (" + this.ips[0] + ")" + " Has Joined The Chat");
             try {
                 while ((jsonData = reader.readLine()) != null) {
-                    System.out.println(jsonData);
+                    //System.out.println(jsonData);
                     Message m = Message.fromJson(jsonData);
 
                     m.commands = new String[0]; // removes all commands from the client's message, don't want them clearing tha chat!
@@ -117,9 +119,32 @@ public class Server
 
     }
 
+    class CommandReader implements Runnable{
+        Scanner reader;
+
+        CommandReader(){
+            reader = new Scanner(System.in);
+        }
+
+        String input(String prompt){
+            System.out.print(prompt);
+            return reader.next();
+        }
+
+        public void run(){
+            String data;
+            while ((data = input(": ")) != ""){
+
+            }
+        }
+    }
+
     private void buildGui(){
         port = Globals.port;
         ip = Globals.ip;
+
+        Thread cr = new Thread(new CommandReader());
+        cr.start();
         int[] windowArea = Globals.serverArea;
 
         try {
@@ -220,7 +245,7 @@ public class Server
                 
                 Thread t = new Thread(new ClientHandler(outString, clientSocket));
                 t.start();
-                System.out.println("New Client Connected");
+                //System.out.println("New Client Connected");
             }
         } catch (Exception ex) { ex.printStackTrace(); }
     }

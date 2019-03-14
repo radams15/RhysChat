@@ -33,14 +33,10 @@ public class ClientLayout{
     class MainWindowListener implements WindowListener {
 
         public void windowClosing(WindowEvent arg0) {
-            Message leaveMessage = new Message(null, clientIp, clientHostname, new Date(), new String[]{"leaving"});
-            sendMessage(leaveMessage);
             System.exit(0);
         }
 
         public void windowOpened(WindowEvent arg0) {
-            Message joinMessage = new Message(null, clientIp, clientHostname, new Date(), new String[]{"joining"});
-            sendMessage(joinMessage);
         }
         public void windowClosed(WindowEvent arg0) {}
         public void windowIconified(WindowEvent arg0) {}
@@ -61,7 +57,7 @@ public class ClientLayout{
 
     private void go() {
         if (production) {
-            String address = JOptionPane.showInputDialog("Ip Address: (IP:PORT) [Default 0.0.0.0:3000]");
+            String address = JOptionPane.showInputDialog("Ip Address: [Default 0.0.0.0:3000]");
             if (address.equals("")) {
                 port = Globals.port;
                 serverIp = Globals.ip;
@@ -149,7 +145,7 @@ public class ClientLayout{
     public class SendButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
             String text = outgoing.getText();
-            Message m = new Message(text, clientIp, clientHostname, new Date(), new String[0]);
+            Message m = new Message(text, clientIp, clientHostname);
             sendMessage(m);
             outgoing.setText("");
             outgoing.requestFocus();

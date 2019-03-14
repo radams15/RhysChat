@@ -1,6 +1,8 @@
 package com.RhysChat;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.Date;
 
 class Message implements Cloneable{
@@ -20,7 +22,7 @@ class Message implements Cloneable{
         g = new Gson();
         ef = new EmojiFormatter();
         /*GsonBuilder builder = new GsonBuilder();
-        g = builder.serializeNulls().create();*/
+        g = builder.setDateFormat(Globals.dateFormat).create();*/
     }
 
     Message(String text, String fromIp, String fromName, Date date, String[] commands){
@@ -30,6 +32,15 @@ class Message implements Cloneable{
         this.date = date;
         this.commands = commands;
 
+        init();
+    }
+
+    Message(String text, String fromIp, String fromName){
+        this.text = text;
+        this.fromIp = fromIp;
+        this.fromName = fromName;
+        this.date = new Date();
+        this.commands = new String[0];
         init();
     }
 
