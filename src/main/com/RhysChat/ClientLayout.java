@@ -157,9 +157,8 @@ public class ClientLayout{
     }
 
     public static void main(String[] args) {
-
         try {
-            UIManager.setLookAndFeel(Globals.clientTheme);
+            UIManager.setLookAndFeel(Globals.interpretTheme(args));
         }catch(Exception e)
         {
             e.printStackTrace();
