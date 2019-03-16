@@ -14,7 +14,7 @@ $myName = "Rhys"
 
 $networking = Networking.new
 
-$main_window_file = "ui/mainWindow.glade"
+$main_window_file = "../../ui/mainWindow.glade"
 
 class Gui < Gtk::Application
   def initialize

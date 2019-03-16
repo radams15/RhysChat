@@ -1,7 +1,6 @@
 package com.RhysChat;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.Date;
 
@@ -21,7 +20,7 @@ class Message implements Cloneable{
     void init(){
         g = new Gson();
         ef = new EmojiFormatter();
-        /*GsonBuilder builder = new GsonBuilder();
+        /*com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder();
         g = builder.serialiseNulls().create();*/
     }
 
