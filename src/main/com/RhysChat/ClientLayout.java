@@ -11,7 +11,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class ClientLayout{

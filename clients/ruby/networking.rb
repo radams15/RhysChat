@@ -1,4 +1,9 @@
 class Networking
+  def initialize
+    @socket = TCPSocket.open $ip, $port
+    @json_interpreter = JsonInterpreter.new
+  end
+
   class JsonInterpreter
     def toJson(text)
       data = {"text": text, "fromName": $myName, "date": DateTime.now, "commands":[]}
@@ -8,11 +13,6 @@ class Networking
     def fromJson(jsonData)
       return JSON.parse jsonData
     end
-  end
-
-  def initialize
-    @socket = TCPSocket.open $ip, $port
-    @json_interpreter = JsonInterpreter.new
   end
 
   def getSocket

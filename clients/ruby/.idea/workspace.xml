@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f548489-3c28-4660-9acd-3a1b5fe80f46" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../src/main/com/RhysChat/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/com/RhysChat/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../python/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../python/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../python/Networking.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../python/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.rb" beforeDir="false" afterPath="$PROJECT_DIR$/client.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking.rb" beforeDir="false" afterPath="$PROJECT_DIR$/networking.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/main/com/RhysChat/ClientLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/com/RhysChat/ClientLayout.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,15 +21,26 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/RhysChatClient@client.rcov" NAME="client Coverage Results" MODIFIED="1552752218031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="RhysChatClient" />
     <SUITE FILE_PATH="coverage/RhysChatClient@gui.rcov" NAME="gui Coverage Results" MODIFIED="1552745905378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="RhysChatClient" />
-    <SUITE FILE_PATH="coverage/ruby@client.rcov" NAME="client Coverage Results" MODIFIED="1552752774356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="RhysChatClient" />
+    <SUITE FILE_PATH="coverage/ruby@client.rcov" NAME="client Coverage Results" MODIFIED="1552763817332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="RhysChatClient" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="46" lean-forward="true" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+            <state relative-caret-position="207">
+              <caret line="93" column="30" lean-forward="true" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
+              <folding>
+                <element signature="e#844#1001#0" />
+                <element signature="e#1005#1043#0" />
+                <element signature="e#1000#1032#0" />
+                <element signature="e#1032#1138#2" />
+                <element signature="n#receive_loop#0;n#!!top" />
+                <element signature="e#1094#1823#0" />
+                <element signature="e#1109#1817#1" />
+                <element signature="e#1387#1767#0" />
+                <element signature="e#1562#1584#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -29,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            <state relative-caret-position="360">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -57,8 +76,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1517" />
-    <option name="height" value="654" />
+    <option name="x" value="1296" />
+    <option name="y" value="1121" />
+    <option name="width" value="749" />
+    <option name="height" value="668" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -76,7 +97,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -151,14 +172,17 @@
       <workItem from="1552744732125" duration="7696000" />
       <workItem from="1552752494237" duration="67000" />
       <workItem from="1552752598217" duration="185000" />
+      <workItem from="1552753647140" duration="62000" />
+      <workItem from="1552753925199" duration="868000" />
+      <workItem from="1552757086986" duration="5690000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14052000" />
+    <option name="totallyTimeSpent" value="20672000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1013" height="1920" extended-state="6" />
+    <frame x="1080" y="844" width="1533" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.5397317" />
@@ -166,7 +190,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3277405" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32523617" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -206,19 +230,35 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/gui.rb" />
     <entry file="file://$PROJECT_DIR$/networking.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        <state relative-caret-position="360">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="46" lean-forward="true" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+        <state relative-caret-position="207">
+          <caret line="93" column="30" lean-forward="true" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
+          <folding>
+            <element signature="e#844#1001#0" />
+            <element signature="e#1005#1043#0" />
+            <element signature="e#1000#1032#0" />
+            <element signature="e#1032#1138#2" />
+            <element signature="n#receive_loop#0;n#!!top" />
+            <element signature="e#1094#1823#0" />
+            <element signature="e#1109#1817#1" />
+            <element signature="e#1387#1767#0" />
+            <element signature="e#1562#1584#0" />
+          </folding>
         </state>
       </provider>
     </entry>

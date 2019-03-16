@@ -12,6 +12,7 @@ class Message implements Cloneable{
     String[] commands;
     private transient Gson g;
     private transient EmojiFormatter ef;
+    private transient boolean serialiseNulls = true;
 
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -20,8 +21,10 @@ class Message implements Cloneable{
     void init(){
         g = new Gson();
         ef = new EmojiFormatter();
-        /*com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder();
-        g = builder.serialiseNulls().create();*/
+        if(serialiseNulls) {
+            com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder();
+            g = builder.serializeNulls().create();
+        }
     }
 
     Message(String text, String fromIp, String fromName, Date date, String[] commands){
