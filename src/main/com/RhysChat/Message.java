@@ -22,7 +22,7 @@ class Message implements Cloneable{
         g = new Gson();
         ef = new EmojiFormatter();
         /*GsonBuilder builder = new GsonBuilder();
-        g = builder.setDateFormat(Globals.dateFormat).create();*/
+        g = builder.serialiseNulls().create();*/
     }
 
     Message(String text, String fromIp, String fromName, Date date, String[] commands){
